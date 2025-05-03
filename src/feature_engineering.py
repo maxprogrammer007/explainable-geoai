@@ -24,8 +24,15 @@ def load_clean_data(path: str = PROCESSED_DATA_PATH) -> pd.DataFrame:
 
 
 def load_county_shapefile(path: str = SHAPEFILE_PATH) -> gpd.GeoDataFrame:
+    # Auto-rebuild .shx if missing
     with fiona.Env(SHAPE_RESTORE_SHX="YES"):
         gdf = gpd.read_file(path)
+
+    # Ensure CRS is projected for accurate distance/centroid
+    # Albers Equal Area for CONUS: EPSG 5070
+    if gdf.crs != "EPSG:5070":
+        gdf = gdf.to_crs("EPSG:5070")
+
     gdf["GEOID"] = gdf["GEOID"].astype(str).str.zfill(5)
     return gdf
 
@@ -35,18 +42,25 @@ def merge_voting_with_geometries(
 ) -> gpd.GeoDataFrame:
     voting_df = voting_df.rename(columns={"county_id": "fips"})
     voting_df["fips"] = voting_df["fips"].str.zfill(5)
-    merged = counties_gdf.merge(voting_df, left_on="GEOID", right_on="fips", how="inner")
+    merged = counties_gdf.merge(
+        voting_df, left_on="GEOID", right_on="fips", how="inner"
+    )
     return merged
 
 
 def add_spatial_lag(
     gdf: gpd.GeoDataFrame, var: str, k: int = 5
 ) -> gpd.GeoDataFrame:
-    # Use polygon centroids for neighbor calculations
+    # Use projected centroids for neighbor distances
     centroids = gdf.geometry.centroid
     coords = [(pt.x, pt.y) for pt in centroids]
+
+    # Build k-NN weights
     w = KNN.from_array(coords, k=k)
-    w.transform = "row_standardized"
+    # Properly row-standardize
+    w.transform='R'
+
+    # Compute spatial lag
     lag_vals = libpysal.weights.lag_spatial(w, gdf[var].values)
     gdf[f"{var}_lag{k}"] = lag_vals
     return gdf
