@@ -1,0 +1,20 @@
+name: geoai
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - geopandas
+  - folium
+  - matplotlib
+  - seaborn
+  - plotly
+  - mgwr
+  - shap
+  - xgboost
+  - scikit-learn
+  - jupyterlab
+  - pip
+  - pip:
+      - flaml
+      - geoshapley
+      - streamlit

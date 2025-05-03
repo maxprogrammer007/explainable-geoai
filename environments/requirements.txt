@@ -1,0 +1,13 @@
+geopandas
+folium
+matplotlib
+seaborn
+plotly
+mgwr
+shap
+xgboost
+scikit-learn
+jupyterlab
+flaml
+geoshapley
+streamlit
