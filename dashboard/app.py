@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
-from streamlit_folium import st_folium
+import streamlit.components.v1 as components
 import folium
 
 # --- Configuration ---
@@ -141,7 +141,9 @@ else:
         )
     )
 
-    st_folium(m, width=800, height=500)
+    map_html = m._repr_html_()
+    components.html(map_html, height=500, scrolling=True)
+
 
 # --- SHAP Feature Importance ---
 if mode == "SHAP" and view == "Point Estimate":
