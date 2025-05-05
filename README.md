@@ -44,8 +44,6 @@ explainable-geoai/
 
 ````
 
----
-
 ## ⚙️ Installation
 
 1. **Clone repo**  
@@ -131,7 +129,7 @@ explainable-geoai/
 * **Fairness**: residual differences across demographic groups.
 * **Download** any CSV for offline analysis.
 
----
+
 
 ## 🧾 Citing
 
