@@ -50,7 +50,7 @@ explainable-geoai/
    ```bash
    git clone https://github.com/yourusername/explainable-geoai.git
    cd explainable-geoai
-````
+```
 
 2. **Create & activate** a virtual environment
 
