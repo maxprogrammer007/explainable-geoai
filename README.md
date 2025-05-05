@@ -42,7 +42,7 @@ explainable-geoai/
 ├── README.md                        # this file
 └── requirements.txt                 # pip dependencies
 
-````
+```
 
 ## ⚙️ Installation
 
