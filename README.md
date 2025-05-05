@@ -71,7 +71,7 @@ explainable-geoai/
    * Place `voting_2021.csv` in `data/raw/`
    * Download ACS and shapefiles via `src/download_census.py` or manually.
 
----
+
 
 ## 🚀 Quick Start
 
@@ -105,7 +105,7 @@ explainable-geoai/
    streamlit run app.py
    ```
 
----
+
 
 ## 📝 Scripts & Modules
 
@@ -119,7 +119,6 @@ explainable-geoai/
 * **`spatial_fairness.py`**: calculates fairness gaps → `fairness_metrics.csv`.
 * **`dashboard/app.py`**: interactive Streamlit + Folium map.
 
----
 
 ## 📊 Dashboard Overview
 
